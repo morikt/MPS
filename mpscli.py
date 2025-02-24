@@ -1,12 +1,20 @@
 import typer
+from tkinter import *
 from  rich.console import Console
 from rich.table import Table
 from model import  Tasks
 from database import insert_task, get_results, delete_task, update_task, complete_to_do
 
+
 console = Console()
 
 app = typer.Typer()
+
+root = Tk()
+root['bg'] = '#000000'
+root.title('MPS - MEXT PREPARATION')
+root.wm_attributes('-alpha', 1)
+root.geometry('300x250')
 
 @app.command(short_help='adds an item')
 def add(task: str):
@@ -49,6 +57,7 @@ def show():
         is_done_str = "✅" if task.status==2 else "❌"
         table.add_row(str(idx), task.task, is_done_str, task.date_added, task.date_completed)
     console.print(table)
+
 
 if __name__ == "__main__":
     app()
