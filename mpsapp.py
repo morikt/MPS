@@ -3,6 +3,32 @@ from tkinter import ttk
 from model import Tasks
 from database import insert_task, get_results, delete_task, update_task, complete_to_do
 
+
+class Window(Tk):
+    def __init__(self):
+        super().__init__()
+
+        # Window configuration
+        self.title('Новое окно')
+        self.geometry('250x250')
+        self['bg'] = 'black'
+
+    def get_data(self):
+        #enter
+        self.enter_add = Entry(self, width=50, font=40)
+        self.enter_add.pack(pady=10)
+
+        #button
+        self.confirm_add = Button(self, text="Подтвердить", width=70, font=40, bg='#480607',fg='white',
+                                  command=self.button_clicked)
+        self.confirm_add.pack(pady=10)
+
+    def button_clicked(self):
+        add(self.enter_add.get())
+        show()
+        self.destroy()
+
+
 root = Tk()
 root['bg'] = 'black'
 root.title('MPS - MEXT PREPARATION')
@@ -36,21 +62,38 @@ tree.column("#3", stretch=YES, width=75)
 tree.column("#4", stretch=YES, width=100)
 tree.column("#5", stretch=YES, width=100)
 
+for idx, task in enumerate(tasks, start=1):
+    is_done_str = "✅" if task.status == 2 else "❌"
+    tree.insert("", END, values=(str(idx), task.task, is_done_str, task.date_added, task.date_completed))
+
+
 def show():
-    for idx,task in enumerate(tasks, start=1):
-        is_done_str = "✅" if task.status==2 else "❌"
-        tree.insert("",END, values= (str(idx), task.task, is_done_str, task.date_added, task.date_completed))
+    tasks = get_results()
+    is_done_str = "✅" if tasks[-1].status == 2 else "❌"
+    tree.insert("", END, values=(str(len(tasks)), tasks[-1].task, is_done_str, tasks[-1].date_added,
+                                 tasks[-1].date_completed))
 
-show()
 
-btn_frame=Frame()
 
-btn = Button(btn_frame)
-# def add(task: str):
-#     typer.echo(f"adding {task}")
-#     one_task = Tasks(task)
-#     insert_task(one_task)
-#     show()
+btn_frame=Frame(root, bg='#480607')
+btn_frame.place(rely = 0.6,relheight=0.2,relwidth=1)
+
+
+def click_add_button():
+    window1 = Window()
+    window_add = Label(window1, text='Введите название: ', bg="#480607", font=40, fg='white', width=100)
+    window_add.pack()
+    window1.get_data()
+
+def add(task: str):
+    one_task = Tasks(task)
+    insert_task(one_task)
+
+
+btn_add = Button(btn_frame, text="Add task",bg="black", fg="white", font=40, command=click_add_button)
+btn_add.place(rely=0.2, relheight=0.7,relwidth=0.25)
+
+
 #
 # def delete(position: int):
 #     typer.echo(f"deleting {position}")
