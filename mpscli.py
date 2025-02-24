@@ -39,13 +39,15 @@ def show():
     console.print("[bold red]DEADLINES[/bold red]")
 
     table = Table(show_header=True, header_style="bold red")
-    table.add_column("#", style="dim", width=6)
-    table.add_column("TASKS", min_width = 20)
-    table.add_column("PROGRESS", min_width = 12, justify="right")
+    table.add_column("#", style="dim", width=6, justify="center")
+    table.add_column("TASKS", min_width = 20, justify="center")
+    table.add_column("PROGRESS", min_width = 12, justify="center")
+    table.add_column("STATING DATE", min_width=25, justify="center")
+    table.add_column("ENDING DATE", min_width=25, justify="center")
 
     for idx,task in enumerate(tasks, start=1):
         is_done_str = "✅" if task.status==2 else "❌"
-        table.add_row(str(idx), task.task, is_done_str)
+        table.add_row(str(idx), task.task, is_done_str, task.date_added, task.date_completed)
     console.print(table)
 
 if __name__ == "__main__":

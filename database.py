@@ -65,5 +65,5 @@ def update_task(position: int, task: str):
 def complete_to_do(position: int):
     with conn:
         c.execute('UPDATE TASKS SET status = 2, date_completed=:date_completed WHERE position=:position',
-                  {'date_completed': datetime.datetime.now().isoformat(),'position': position})
+                  {'date_completed': datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S"),'position': position})
 
