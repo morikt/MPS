@@ -1,6 +1,5 @@
 import sqlite3
 import datetime
-from dataclasses import asdict
 from model import Tasks
 from typing import List
 
@@ -10,7 +9,7 @@ conn = sqlite3.connect('TASKS.db')
 c = conn.cursor()
 
 def create_table():
-    c.execute("""(CREATE TABLE IF NOT EXISTS TASKS
+    c.execute("""CREATE TABLE IF NOT EXISTS TASKS(
     task text,
     date_added text,
     date_completed text,
@@ -49,7 +48,7 @@ def delete_task(position):
 
 
 def change_position(old_p: int,new_p: int, commit = True):
-    c.execute('UPDATE TASKS SET position=:position_new WHERE position:=position_old', {
+    c.execute('UPDATE TASKS SET position=:position_new WHERE position=:position_old', {
         'position_new': new_p,'position_old': old_p
     })
     if commit:
@@ -59,11 +58,12 @@ def change_position(old_p: int,new_p: int, commit = True):
 def update_task(position: int, task: str):
     with conn:
         if task is not None:
-            c.execute('UPDATE TASKS SET task:=task WHERE position=:position', {'position': position,
-                                                                          'task':task})
+            c.execute('UPDATE TASKS SET task=:task WHERE position=:position', {'position': position,
+                                                                               'task':task
+                                                                               })
 
 def complete_to_do(position: int):
     with conn:
-        c.execute('UPDATE TASKS SET status:=2, date_completed:=date_completed WHERE position:=position',
-                  {'position': position,'date_completed': datetime.datetime.now().isoformat()})
+        c.execute('UPDATE TASKS SET status = 2, date_completed=:date_completed WHERE position=:position',
+                  {'date_completed': datetime.datetime.now().isoformat(),'position': position})
 
