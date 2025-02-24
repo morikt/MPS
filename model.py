@@ -14,4 +14,3 @@ class Tasks():
     def __repr__(self) -> str:
         return f"{self.task}, {self.date_added}, {self.date_completed}, {self.status}. {self.position}"
 
-    
