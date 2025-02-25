@@ -48,5 +48,5 @@ def start_timer(seconds,o):
         pass
 
     if dur == 0 and not(get_results()[-1].status == 2):
-        start_punishment()
+        start_punishment(seconds)
 

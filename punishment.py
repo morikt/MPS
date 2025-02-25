@@ -1,7 +1,7 @@
 from tkinter import *
 import time
 
-def start_punishment():
+def start_punishment(sec):
 
     root = Tk()
 
@@ -21,7 +21,7 @@ def start_punishment():
     count_digit = Label(root, text='0', font='Arial 50 bold', bg='black', fg='white',justify='center')
     count_digit.place(rely=0.5, relx=0.4)
 
-    dur = 20
+    dur = int(sec)*5
     while dur:
         h = dur//3600
         m = dur%3600//60
