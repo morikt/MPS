@@ -86,10 +86,7 @@ def show():
 
 show()
 
-btn_frame=Frame(root, bg='#480607')
-btn_frame.place(rely = 0.6,relheight=0.2,relwidth=1)
 
-#click_button
 def click_add_button(text='Введите название'):
     window1 = Window()
     window1.window_add['text'] = 'Введите название'
@@ -134,17 +131,23 @@ def click_cmp_button():
 def complete(position: int):
     complete_to_do(position-1)
 
-btn_add = Button(btn_frame, text="Add task",bg="black", fg="white", font=40, command=click_add_button)
-btn_add.place(rely=0.2, relx=0.08, relheight=0.7,relwidth=0.2)
 
-btn_dell = Button(btn_frame, text="Delete",bg="black", fg="white", font=40, command=click_dell_button)
-btn_dell.place(rely=0.2, relx=0.3, relheight=0.7,relwidth=0.2)
+def create_buttons():
+    btn_frame = Frame(root, bg='#480607')
+    btn_frame.place(rely=0.6, relheight=0.2, relwidth=1)
 
-btn_upd = Button(btn_frame, text="Update",bg="black", fg="white", font=40, command=click_upd_button)
-btn_upd.place(rely=0.2,relx=0.52, relheight=0.7,relwidth=0.2)
+    btn_add = Button(btn_frame, text="Add task",bg="black", fg="white", font=40, command=click_add_button)
+    btn_add.place(rely=0.2, relx=0.08, relheight=0.7,relwidth=0.2)
 
-btn_cpl = Button(btn_frame, text="Complete",bg="black", fg="white", font=40, command=click_cmp_button)
-btn_cpl.place(rely=0.2,relx=0.74, relheight=0.7,relwidth=0.2)
+    btn_dell = Button(btn_frame, text="Delete",bg="black", fg="white", font=40, command=click_dell_button)
+    btn_dell.place(rely=0.2, relx=0.3, relheight=0.7,relwidth=0.2)
 
+    btn_upd = Button(btn_frame, text="Update",bg="black", fg="white", font=40, command=click_upd_button)
+    btn_upd.place(rely=0.2,relx=0.52, relheight=0.7,relwidth=0.2)
+
+    btn_cpl = Button(btn_frame, text="Complete",bg="black", fg="white", font=40, command=click_cmp_button)
+    btn_cpl.place(rely=0.2,relx=0.74, relheight=0.7,relwidth=0.2)
+
+create_buttons()
 
 root.mainloop()
