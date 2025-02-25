@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from model import Tasks
 from database import insert_task, get_results, delete_task, update_task, complete_to_do
+from timer import start_timer
 
 
 class Window(Tk):
@@ -16,17 +17,30 @@ class Window(Tk):
         self.enter_add = Entry(self, width=50, font=40)
         self.confirm_add = Button(self, text="Подтвердить", width=70, font=40, bg='#480607',fg='white',
                                   command=self.button_clicked)
+        self.entr_add = 0
 
-    def get_data(self):
+        self.enter_d = Entry(self, width=50, font=40)
+
+
+    def get_data(self,pady):
         #enter
-        self.enter_add.pack(pady=10)
+        self.enter_add.pack(pady=pady)
         #button
-        self.confirm_add.pack(pady=10)
+        self.confirm_add.pack(pady=pady)
+
+        try:
+            self.entr_add.pack(pady=10)
+            self.enter_d.pack()
+        except:
+            pass
 
     def button_clicked(self):
         add(self.enter_add.get())
         show()
-        self.destroy()
+        try:
+            start_timer(self.enter_d.get(),self)
+        except:
+            pass
 
     def button_clicked1(self):
         delete(int(self.enter_add.get()))
@@ -92,11 +106,15 @@ def click_add_button(text='Введите название'):
     window1.window_add['text'] = 'Введите название'
     window1.window_add.pack()
     window1.confirm_add['command'] = window1.button_clicked
-    window1.get_data()
+    window1.entr_add = Label(window1, text='Введите дедлайн', bg="#480607", font=40, fg='white', width=100)
+    window1.get_data(10)
+
+
 
 def add(task: str):
     one_task = Tasks(task)
     insert_task(one_task)
+
 
 
 def click_dell_button():
@@ -104,7 +122,7 @@ def click_dell_button():
     window1.window_add['text'] = 'Введите номер'
     window1.window_add.pack()
     window1.confirm_add['command'] = window1.button_clicked1
-    window1.get_data()
+    window1.get_data(10)
 
 def delete(position: int):
     delete_task(position-1)
@@ -115,7 +133,7 @@ def click_upd_button():
     window1.window_add['text'] = 'Введите номер и имя'
     window1.window_add.pack()
     window1.confirm_add['command'] = window1.button_clicked2
-    window1.get_data()
+    window1.get_data(10)
 
 def update(position: str, task: str):
     update_task(int(position)-1, task)
@@ -126,7 +144,7 @@ def click_cmp_button():
     window1.window_add['text'] = 'Введите номер'
     window1.window_add.pack()
     window1.confirm_add['command'] = window1.button_clicked3
-    window1.get_data()
+    window1.get_data(10)
 
 def complete(position: int):
     complete_to_do(position-1)
