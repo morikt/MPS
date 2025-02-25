@@ -55,9 +55,9 @@ canvas = Canvas(root, height=450, width=500, bg= 'black', highlightthickness=0)
 canvas.pack()
 
 frame = Frame(root, bg='black')
-frame.place(rely=0.1,relwidth=1,relheight=0.5)
+frame.place(rely=0.2,relwidth=1,relheight=0.5)
 
-title = Label(frame, text='MPS', bg="#480607",font=40, fg='white',  width=350)
+title = Label(frame, text='MPS', bg="#480607",font=80, fg='white', width=350)
 title.pack()
 
 columns = ("#", "TASKS", "PROGRESS", "STARTING DATE", "ENDING DATE")
