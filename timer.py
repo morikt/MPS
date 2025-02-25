@@ -3,13 +3,23 @@ from tkinter import ttk
 import time
 
 
+
 def start_timer(seconds,o):
-    root = Tk()
+    root = Toplevel()
+
+    root.grab_set()
+
     root['bg'] = 'black'
     root.title('ДЕДЛАЙН')
     root.wm_attributes('-alpha', 1)
     root.geometry('500x100')
     root.resizable(False, False)
+    root.attributes("-topmost", True)
+
+    def disable_event():
+        pass
+
+    root.protocol("WM_DELETE_WINDOW", disable_event)
 
     frame = Frame(root, bg='black')
     frame.place(relwidth=1, relheight=0.5)
@@ -31,5 +41,6 @@ def start_timer(seconds,o):
         count_digit.update()
         time.sleep(1)
         dur-=1
+    root.grab_release()
     root.destroy()
 
