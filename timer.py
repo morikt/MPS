@@ -5,6 +5,7 @@ import time
 
 
 def start_timer(seconds,o):
+
     root = Toplevel()
 
     root.grab_set()

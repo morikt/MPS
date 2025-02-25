@@ -38,9 +38,10 @@ class Window(Tk):
         add(self.enter_add.get())
         show()
         try:
-            start_timer(self.enter_d.get(),self)
+            if int(self.enter_d.get()) > 0:
+                start_timer(self.enter_d.get(),self)
         except:
-            pass
+            self.destroy()
 
     def button_clicked1(self):
         delete(int(self.enter_add.get()))
