@@ -13,10 +13,10 @@ def start_timer(seconds,o):
     root['bg'] = 'black'
     root.title('ДЕДЛАЙН')
     root.wm_attributes('-alpha', 1)
-    root.geometry('500x100')
+    root.geometry('500x100+0+820')
     root.resizable(False, False)
     root.attributes("-topmost", True)
-
+    root.overrideredirect(True)
     def disable_event():
         pass
 
