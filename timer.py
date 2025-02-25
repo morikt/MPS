@@ -1,14 +1,12 @@
 from tkinter import *
-from tkinter import ttk
 import time
-
+from database import get_results
+from punishment import start_punishment
 
 
 def start_timer(seconds,o):
 
     root = Toplevel()
-
-    root.grab_set()
 
     root['bg'] = 'black'
     root.title('ДЕДЛАЙН')
@@ -42,6 +40,13 @@ def start_timer(seconds,o):
         count_digit.update()
         time.sleep(1)
         dur-=1
-    root.grab_release()
-    root.destroy()
+        if get_results()[-1].status == 2:
+            root.destroy()
+    try:
+        root.destroy()
+    except:
+        pass
+
+    if dur == 0 and not(get_results()[-1].status == 2):
+        start_punishment()
 
